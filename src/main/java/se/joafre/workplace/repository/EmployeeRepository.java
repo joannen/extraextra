@@ -1,7 +1,7 @@
-package se.joafre.worplace.repository;
+package se.joafre.workplace.repository;
 
-import se.joafre.worplace.model.Department;
-import se.joafre.worplace.model.Employee;
+import se.joafre.workplace.model.Department;
+import se.joafre.workplace.model.Employee;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,7 +21,6 @@ public class EmployeeRepository {
     public void addEmployee(Employee employee){
         manager = factory.createEntityManager();
         manager.getTransaction().begin();
-        manager.persist(employee.getDepartment());
         manager.persist(employee);
         manager.getTransaction().commit();
         manager.close();
@@ -47,5 +46,17 @@ public class EmployeeRepository {
     }
 
 
+    public void addDepartment(Department department) {
+        manager = factory.createEntityManager();
+        manager.getTransaction().begin();
+        manager.persist(department);
+        manager.close();
+    }
 
+    public void mergeEmployee(Employee e) {
+        manager = factory.createEntityManager();
+        manager.getTransaction().begin();
+        manager.merge(e);
+        manager.close();
+    }
 }

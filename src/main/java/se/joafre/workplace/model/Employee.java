@@ -1,6 +1,10 @@
-package se.joafre.worplace.model;
+package se.joafre.workplace.model;
 
 import javax.persistence.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by joanne on 10/12/15.
@@ -10,30 +14,33 @@ public class Employee {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long employeeId;
+
     @Column(nullable = false)
     private String firstName;
     @Column(nullable = false)
     private String lastName;
     @Column(nullable = false)
     private String employeeNumber;
-    @ManyToOne
-    private Department department;
+
+    @ManyToMany
+    private Collection<Department> departments;
+
     @Embedded
     private ParkingSpot parkingSpot;
 
     protected Employee (){}
 
-    public Employee(String firstName, String lastName, String employeeNumber, Department department, ParkingSpot parkingSpot) {
+    public Employee(String firstName, String lastName, String employeeNumber, ParkingSpot parkingSpot) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.employeeNumber = employeeNumber;
-        this.department = department;
         this.parkingSpot = parkingSpot;
+        this.departments = new ArrayList<>();
     }
 
-    public Long getId() {
-        return id;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
     public String getFirstName() {
@@ -48,11 +55,17 @@ public class Employee {
         return employeeNumber;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Collection<Department> getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(Collection<Department> departments) {
+        this.departments = departments;
     }
 
     public ParkingSpot getParkingSpot() {
         return parkingSpot;
     }
 }
+
+

@@ -1,6 +1,7 @@
-package se.joafre.worplace.model;
+package se.joafre.workplace.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -12,20 +13,23 @@ public class Department {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long departmentId;
+
     @Column(nullable = false)
     private String name;
-    @OneToMany(mappedBy = "department")
+
+    @ManyToMany(mappedBy = "departments")
     private Collection<Employee> employees;
 
     protected Department() {}
 
     public Department(String name) {
         this.name = name;
+        this.employees = new ArrayList<>();
     }
 
-    public Long getId() {
-        return id;
+    public Long getDepartment_id() {
+        return departmentId;
     }
 
     public String getName() {
@@ -33,6 +37,10 @@ public class Department {
     }
 
     public Collection<Employee> getEmployees() {
-        return new HashSet<>(employees);
+        return employees;
+    }
+
+    public void setEmployees(Collection<Employee> employees) {
+        this.employees = employees;
     }
 }

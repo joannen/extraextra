@@ -1,7 +1,6 @@
-package se.joafre.worplace.model;
+package se.joafre.workplace.model;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 /**
  * Created by joanne on 10/12/15.
